@@ -1,5 +1,6 @@
 package rezept_day.ucoz.ru.notes;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewNotes;
-    private ArrayList<Note> notes = new ArrayList<>();
+    private static final ArrayList<Note> notes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickAddNote(View view) {
-
+        Intent intent = new Intent(this, AddNoteActivity.class);
+        startActivity(intent);
     }
 }
