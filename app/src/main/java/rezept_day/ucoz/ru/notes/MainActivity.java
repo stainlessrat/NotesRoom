@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewNotes;
-    private static final ArrayList<Note> notes = new ArrayList<>();
+    public static final ArrayList<Note> notes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,13 +22,15 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerViewNotes = findViewById(R.id.recyclerViewNotes);
 
-        notes.add(new Note("Парикмахер", "Сделать прическу", "Понедельник", 2));
-        notes.add(new Note("Баскетбол", "Игра со школьной командой", "Вторник", 3));
-        notes.add(new Note("Магазин", "Купить новые джинсы", "Понедельник", 3));
-        notes.add(new Note("Стоматогол", "Выличить зубы", "Понедельник", 2));
-        notes.add(new Note("Парикмахер", "Сделать прическу к выпускному", "Среда", 1));
-        notes.add(new Note("Баскетбол", "Игра со школьной командой", "Вторник", 3));
-        notes.add(new Note("Магазин", "Купить новые джинсы", "Понедельник", 3));
+        if (notes.isEmpty()) {
+            notes.add(new Note("Парикмахер", "Сделать прическу", "Понедельник", 2));
+            notes.add(new Note("Баскетбол", "Игра со школьной командой", "Вторник", 3));
+            notes.add(new Note("Магазин", "Купить новые джинсы", "Понедельник", 3));
+            notes.add(new Note("Стоматогол", "Выличить зубы", "Понедельник", 2));
+            notes.add(new Note("Парикмахер", "Сделать прическу к выпускному", "Среда", 1));
+            notes.add(new Note("Баскетбол", "Игра со школьной командой", "Вторник", 3));
+            notes.add(new Note("Магазин", "Купить новые джинсы", "Понедельник", 3));
+        }
 
         NotesAdapter adapter = new NotesAdapter(notes);
         //Осталось только указать нашему RecyclerView как отображать список ( по горизонтали, по вертикали, сеткой)
