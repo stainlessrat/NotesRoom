@@ -10,14 +10,12 @@ public class NotesViewHolder extends RecyclerView.ViewHolder{//Этот клас
     private TextView textViewTitle;
     private TextView textViewDescription;
     private TextView textViewDayOfWeek;
-    private TextView textViewPriority;
 
     public NotesViewHolder(@NonNull View itemView) {
         super(itemView);
         textViewTitle = itemView.findViewById(R.id.textViewTitle);
         textViewDescription = itemView.findViewById(R.id.textViewDescription);
         textViewDayOfWeek = itemView.findViewById(R.id.textViewDayOfWeek);
-        textViewPriority = itemView.findViewById(R.id.textViewPriority);
     }
 
     public TextView getTextViewTitle() {
@@ -30,9 +28,5 @@ public class NotesViewHolder extends RecyclerView.ViewHolder{//Этот клас
 
     public TextView getTextViewDayOfWeek() {
         return textViewDayOfWeek;
-    }
-
-    public TextView getTextViewPriority() {
-        return textViewPriority;
     }
 }
