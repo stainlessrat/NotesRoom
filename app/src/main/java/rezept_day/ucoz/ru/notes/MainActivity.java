@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -37,5 +38,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Установить у RecyclerView Adapter
         recyclerViewNotes.setAdapter(adapter);
+    }
+
+    public void onClickAddNote(View view) {
+
     }
 }
