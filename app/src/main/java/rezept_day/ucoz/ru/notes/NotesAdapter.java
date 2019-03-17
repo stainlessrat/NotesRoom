@@ -5,16 +5,28 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class NotesAdapter extends RecyclerView.Adapter<NotesViewHolder> {
+public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
 
-    private ArrayList<Note> notes;//массив для хранения заметок
+    private ArrayList<Note> notes;//массив для хранения
+    private OnNoteClickListener onNoteClickListener;
+
+    public void setOnNoteClickListener(OnNoteClickListener onNoteClickListener) {
+        this.onNoteClickListener = onNoteClickListener;
+    }
 
     public NotesAdapter(ArrayList<Note> notes) {
-        this.notes = notes;//получаем массив к конструкторе
+        this.notes = notes;//получаем массив в конструкторе
     }
+
+    public interface OnNoteClickListener {
+        void onNoteClick(int position);
+        void onLongClick(int position);
+    }
+
 
     @NonNull
     @Override
@@ -53,5 +65,49 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesViewHolder> {
     public int getItemCount() {
         //Просто возвращвет количество элементов в массиве
         return notes.size();
+    }
+
+    public class NotesViewHolder extends RecyclerView.ViewHolder{//Этот класс будет содержать все видимые части нашей заметки
+
+        private TextView textViewTitle;
+        private TextView textViewDescription;
+        private TextView textViewDayOfWeek;
+
+
+        public NotesViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textViewTitle = itemView.findViewById(R.id.textViewTitle);
+            textViewDescription = itemView.findViewById(R.id.textViewDescription);
+            textViewDayOfWeek = itemView.findViewById(R.id.textViewDayOfWeek);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(onNoteClickListener != null){
+                        onNoteClickListener.onNoteClick(getAdapterPosition());
+                    }
+                }
+            });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {//обрабатывает долгое нажатие на элементе
+                    if(onNoteClickListener != null){
+                        onNoteClickListener.onLongClick(getAdapterPosition());
+                    }
+                    return true;
+                }
+            });
+        }
+
+        public TextView getTextViewTitle() {
+            return textViewTitle;
+        }
+
+        public TextView getTextViewDescription() {
+            return textViewDescription;
+        }
+
+        public TextView getTextViewDayOfWeek() {
+            return textViewDayOfWeek;
+        }
     }
 }
