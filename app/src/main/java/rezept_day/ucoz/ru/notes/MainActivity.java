@@ -30,11 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //программно убрать ActionBar
-        ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
-            actionBar.hide();
-        }
+
 
         recyclerViewNotes = findViewById(R.id.recyclerViewNotes);
 
