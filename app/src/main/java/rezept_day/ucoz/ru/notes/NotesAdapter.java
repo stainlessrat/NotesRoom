@@ -44,7 +44,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         //Установка полей заметки в макет item
         notesViewHolder.getTextViewTitle().setText(note.getTitle());
         notesViewHolder.getTextViewDescription().setText(note.getDescription());
-        notesViewHolder.getTextViewDayOfWeek().setText(Note.getDayasString(note.getDayOfWeek()));
+        notesViewHolder.getTextViewDayOfWeek().setText(Note.getDayasString(note.getDayOfWeek() + 1));
         int colorID;
         int priority = note.getPriority();
         switch (priority){

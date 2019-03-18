@@ -20,10 +20,14 @@ public class AddNoteActivity extends AppCompatActivity {
     private Spinner spinnerDaysOfWeek;
     private RadioGroup radioGroupPriority;
 
+    private NotesDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
+
+        database = NotesDatabase.getInstance(this);
 
         //программно убрать ActionBar
         ActionBar actionBar = getSupportActionBar();
@@ -49,18 +53,14 @@ public class AddNoteActivity extends AppCompatActivity {
         RadioButton radioButton = findViewById(radioButtonID);
         int priority = Integer.parseInt(radioButton.getText().toString());
 
-        if(isFilled(title, description)) {
-            //работа с БД
-            ContentValues contentValues = new ContentValues();
-            contentValues.put(NotesContract.NotesEntry.COLUMN_TITLE, title);
-            contentValues.put(NotesContract.NotesEntry.COLUMN_DESCRIPTION, description);
-            contentValues.put(NotesContract.NotesEntry.COLUMN_DAY_OF_WEEK, dayOfWeek + 1);
-            contentValues.put(NotesContract.NotesEntry.COLUMN_PRIORITY, priority);
+        if(isFilled(title, description)){
+            Note note = new Note(title, description, dayOfWeek, priority);
+            database.notesDao().insertNote(note);
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }else{
-            Toast.makeText(this, getString(R.string.warning_fill_fileds), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.warning_fill_fileds, Toast.LENGTH_SHORT).show();
         }
     }
 

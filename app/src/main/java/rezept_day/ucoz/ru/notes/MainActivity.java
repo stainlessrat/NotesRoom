@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,10 +24,16 @@ public class MainActivity extends AppCompatActivity {
     private final ArrayList<Note> notes = new ArrayList<>();
     private NotesAdapter adapter;
 
+    //БД
+    private NotesDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //получить БД
+        database = NotesDatabase.getInstance(this);
 
         //программно убрать ActionBar
         ActionBar actionBar = getSupportActionBar();
@@ -43,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         //recyclerViewNotes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));//По горизонтали
         //recyclerViewNotes.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true));//По горизонтали, распологаются в обратном направлении
         //recyclerViewNotes.setLayoutManager(new GridLayoutManager(this, 3));//Сеткой, передаем контекст и количество столбцов
+
+        getData();//Получаем данные из БД
 
         //Установить у RecyclerView Adapter
         recyclerViewNotes.setAdapter(adapter);
@@ -79,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void remove(int position){
         //удаление записи из БД
-        int id = notes.get(position).getId();
+        Note note = notes.get(position);//Получаем нашу записку
+        database.notesDao().deleteNote(note);//Удаляем записку из БД
+        getData();//получаем данные
 
         //notes.remove(position);//Удаляем позицию в списке, на которую нажал пользователь
         adapter.notifyDataSetChanged();//Говорим адаптеру: "обрати внимание: данные изменились"
@@ -88,5 +99,11 @@ public class MainActivity extends AppCompatActivity {
     public void onClickAddNote(View view) {
         Intent intent = new Intent(this, AddNoteActivity.class);
         startActivity(intent);
+    }
+
+    private void getData(){
+        List<Note> notesFromDB = database.notesDao().getAllNotes();//получаем в ArrayList данные из БД
+        notes.clear();//Очищаем список
+        notes.addAll(notesFromDB);//Добавляем в ArrayList для вывода
     }
 }
