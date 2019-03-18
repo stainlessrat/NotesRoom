@@ -1,7 +1,11 @@
 package rezept_day.ucoz.ru.notes;
 
 
+import android.arch.persistence.room.Entity;
+
 //Класс который будет содержать всю информацию о заметке
+//Для того чтобы объект хранить в базе данных надо пометить его анатацией @Entity
+@Entity
 public class Note {
     private int id;//ID заметки из БД
     private String title;//Заголовок заметки
