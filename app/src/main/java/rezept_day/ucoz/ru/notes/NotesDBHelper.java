@@ -8,7 +8,7 @@ public class NotesDBHelper extends SQLiteOpenHelper {
     //Класс для работы с базой данных
 
     private static final String DB_NAME = "notes.db";//Название нашей базы данных
-    private static final int DB_VERSION = 1;//Версия БД, если надобудет обновить, добавляем +1 и т.д.
+    private static final int DB_VERSION = 2;//Версия БД, если надобудет обновить, добавляем +1 и т.д.
 
     public NotesDBHelper(Context context) {
         //Конструктор

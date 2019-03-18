@@ -17,7 +17,7 @@ public class NotesContract {//Класс в котором будут храни
         public static final String CREATE_COMMAND = "CREATE TABLE IF NOT EXISTS " + TABLE_NAME +
                 "(" + _ID + " " + TYPE_INTEGER + " PRIMARY KEY AUTOINCREMENT, " + COLUMN_TITLE +
                 " " + TYPE_TEXT + ", " + COLUMN_DESCRIPTION + " " + TYPE_TEXT + ", " +
-                COLUMN_DAY_OF_WEEK + " " + TYPE_TEXT + ", " + COLUMN_PRIORITY + " " +
+                COLUMN_DAY_OF_WEEK + " " + TYPE_INTEGER + ", " + COLUMN_PRIORITY + " " +
                 TYPE_INTEGER + ")";//Строка содержащая команду создания таблицы
 
         public static final String DROP_COMMAND = "DROP TABLE IF EXISTS " + TABLE_NAME;//Команда для удаления таблицы
