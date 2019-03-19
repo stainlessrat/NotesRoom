@@ -1,4 +1,4 @@
-package rezept_day.ucoz.ru.notes;
+package rezept_day.ucoz.ru.notesroom;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
@@ -16,9 +16,9 @@ public abstract class NotesDatabase extends RoomDatabase {
         synchronized (LOCK) {
             if (database == null) {//Если БД нет, то создать ее
                 //Создание БД
-                database = Room.databaseBuilder(context, NotesDatabase.class, DB_NAME)
-                        .allowMainThreadQueries()//Только для тестов. Никогда так не делайте в реальном приложении. Позволяет обращаться к БД из главного потока
-                        .build();//
+                database = Room.databaseBuilder(context, NotesDatabase.class, DB_NAME).build();
+                        //.allowMainThreadQueries()//Только для тестов. Никогда так не делайте в реальном приложении. Позволяет обращаться к БД из главного потока
+
             }
         }
         return database;

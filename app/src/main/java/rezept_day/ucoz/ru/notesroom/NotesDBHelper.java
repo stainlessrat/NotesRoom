@@ -1,4 +1,4 @@
-package rezept_day.ucoz.ru.notes;
+package rezept_day.ucoz.ru.notesroom;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

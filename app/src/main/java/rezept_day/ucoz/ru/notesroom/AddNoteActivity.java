@@ -1,8 +1,6 @@
-package rezept_day.ucoz.ru.notes;
+package rezept_day.ucoz.ru.notesroom;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +10,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import rezept_day.ucoz.ru.notes.R;
 
 public class AddNoteActivity extends AppCompatActivity {
 

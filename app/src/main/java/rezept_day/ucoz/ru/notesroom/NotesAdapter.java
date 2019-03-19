@@ -1,4 +1,4 @@
-package rezept_day.ucoz.ru.notes;
+package rezept_day.ucoz.ru.notesroom;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import rezept_day.ucoz.ru.notes.R;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
 

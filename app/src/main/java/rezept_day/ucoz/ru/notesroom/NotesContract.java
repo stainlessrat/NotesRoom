@@ -1,4 +1,4 @@
-package rezept_day.ucoz.ru.notes;
+package rezept_day.ucoz.ru.notesroom;
 
 import android.provider.BaseColumns;
 
