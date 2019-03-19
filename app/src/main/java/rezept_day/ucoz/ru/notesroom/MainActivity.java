@@ -2,6 +2,7 @@ package rezept_day.ucoz.ru.notesroom;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
     private NotesAdapter adapter;
 
     //БД
-    private NotesDatabase database;
+    //private NotesDatabase database;
+
+    private MainViewModel viewModel;//Объект для работы с БД в отдельном потоке
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //получить БД
-        database = NotesDatabase.getInstance(this);
+        //database = NotesDatabase.getInstance(this);
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         //программно убрать ActionBar
         ActionBar actionBar = getSupportActionBar();
@@ -89,8 +93,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void remove(int position){
         //удаление записи из БД
-        Note note = notes.get(position);//Получаем нашу записку
-        database.notesDao().deleteNote(note);//Удаляем записку из БД
+        //Note note = notes.get(position);//Получаем нашу записку
+        Note note = adapter.getNotes().get(position);
+        //database.notesDao().deleteNote(note);//Удаляем записку из БД
+
+        viewModel.deleteNote(note);
 
 //          теперь при удалении нам не нужно вызывать эти методы
 //        getData();//получаем данные
@@ -105,15 +112,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getData(){
-        LiveData<List<Note>> notesFromDB = database.notesDao().getAllNotes();//Объект notesFromDB - является Observeble, то есть объект просматривается
+        //LiveData<List<Note>> notesFromDB = database.notesDao().getAllNotes();//Объект notesFromDB - является Observeble, то есть объект просматривается
                                                                              //И если в нем произойдут изменения, БД сообщит об этих изменениях
+
+        final LiveData<List<Note>> notesFromDB = viewModel.getNotes();//получаем записки в отдельном потоке
         //Чтобы использовать такие изменения, выполняем следующий код
         notesFromDB.observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(@Nullable List<Note> notesFromLiveData) {
-                notes.clear();//Очищаем список
-                notes.addAll(notesFromLiveData);//Добавляем в ArrayList для вывода
-                adapter.notifyDataSetChanged();
+
+                adapter.setNotes(notesFromLiveData);
+
+//                notes.clear();//Очищаем список
+//                notes.addAll(notesFromLiveData);//Добавляем в ArrayList для вывода
+//                adapter.notifyDataSetChanged();
             }
         });
     }

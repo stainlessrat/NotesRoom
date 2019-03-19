@@ -1,5 +1,6 @@
 package rezept_day.ucoz.ru.notesroom;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,14 +21,16 @@ public class AddNoteActivity extends AppCompatActivity {
     private Spinner spinnerDaysOfWeek;
     private RadioGroup radioGroupPriority;
 
-    private NotesDatabase database;
+    //private NotesDatabase database;
+    private MainViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
 
-        database = NotesDatabase.getInstance(this);
+        //database = NotesDatabase.getInstance(this);
+        viewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         //программно убрать ActionBar
         ActionBar actionBar = getSupportActionBar();
@@ -55,7 +58,8 @@ public class AddNoteActivity extends AppCompatActivity {
 
         if(isFilled(title, description)){
             Note note = new Note(title, description, dayOfWeek, priority);
-            database.notesDao().insertNote(note);
+            //database.notesDao().insertNote(note);
+            viewModel.insertNote(note);
 
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

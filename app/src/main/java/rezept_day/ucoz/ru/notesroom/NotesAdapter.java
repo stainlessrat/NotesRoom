@@ -7,20 +7,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import rezept_day.ucoz.ru.notes.R;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
 
-    private ArrayList<Note> notes;//массив для хранения
+    private List<Note> notes;//массив для хранения
     private OnNoteClickListener onNoteClickListener;
 
     public void setOnNoteClickListener(OnNoteClickListener onNoteClickListener) {
         this.onNoteClickListener = onNoteClickListener;
     }
 
-    public NotesAdapter(ArrayList<Note> notes) {
+    public NotesAdapter(List<Note> notes) {
         this.notes = notes;//получаем массив в конструкторе
     }
 
@@ -111,5 +111,14 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHol
         public TextView getTextViewDayOfWeek() {
             return textViewDayOfWeek;
         }
+    }
+
+    public void setNotes(List<Note> notes) {
+        this.notes = notes;
+        notifyDataSetChanged();
+    }
+
+    public List<Note> getNotes() {
+        return notes;
     }
 }
